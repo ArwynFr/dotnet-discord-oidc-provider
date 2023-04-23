@@ -1,0 +1,47 @@
+= Discord OIDC Provider: Privacy policy
+
+== What information we collect
+
+This software collects the following information about users:
+
+- Discord unique identifier
+- Discord username
+- Discord discriminator
+
+This information is collected with the explict consent of user through Discord authorization page. IP addresses and emails are not collected by this service. Affiliated applications can access further personnal information by using the Discord API.
+
+== How we use the information we collect
+
+The collected information is used to provide affiliated applications with openid connect tokens:
+
+- Identity tokens are used as a proof of the user's Discord identity.
+- Access tokens are used as a proof of operating on the user's behalf when an affiliated application exchanges data with other affilated services.
+    
+Both tokens are valid for 20 minutes by default, affilated applications will refresh them after this period of time.
+
+== How we secure collected information
+
+Obtaining acces to openid connect tokens requires the exchange of a short-lived (5 minutes by default) single-use authorization code.
+The purpose of this code is to proove that the affilated application operates under the control fo the same person that authorized with Discord.
+
+Furthermore, your information is exchanged with affilated applications using PKCE, which ensures no other program on your computer can read the token.
+
+== How long we keep collected information
+Your information is stored in the service memory for 30 minutes after last interaction by default.
+
+The prupose of this storage is to allow you to access multiple affiliated aplications in a short period of time without the need to authorize with Discord every time.
+It is also longer than the lifespan of the tokens, allowing affilated applications to refresh them without the need to reauthorize with Discord.
+
+A cookie is stored on your computer with a session identifier to associate ulterior request with your identity.
+Every interaction with the system will extend the session duration.
+Interactions with affiliated applications does not extend the session duration.
+However affilated applications will redirect you to this website transparently for refreshing tokens after they expired.
+Continuous usage of affilated applications should keep your session alive.
+When the session expires, the information is automatically removed from the server's memory.
+Accessing the service with an expired cookie will create a new session, a new cookie and you will need to authorize with Discord again.
+
+Deleting the cookie from your computer will not remove the identity information from the server's memory.
+Your personnal information will stay in the server's memory but you won't be able to access it.
+Accessing the service will create a new sesion, with a new cookie, a new authorization grant.
+Your information will be stored twice in the server's memory.
+Different sessions cannot be consolidated as this would prevent you from acessing affiliated application from different devices simultaneously.

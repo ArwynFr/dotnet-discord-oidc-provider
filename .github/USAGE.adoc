@@ -1,0 +1,45 @@
+= Discord OIDC Provider: Usage guide
+
+== Configuring your OIDC infrastructure
+
+Service maintainers:
+
+- Decide an audience name (by convention it is the service's origin)
+- Decide scopes needed for each route
+
+Clients maintainers:
+
+- Request a client identifier from the OP maintainer
+- Get your callback URL as configured in your OIDC lib
+- List all audiences and scopes needed for operations
+- Send these elements to the OP maintainer
+
+OP maintainer:
+
+- Configure the `clients.json` with these elements (see xref:INSTALL.adoc[Installation guide])
+
+[appendix]
+== Endpoints URL
+
+The following table lists all useful OIDC endpoints for clients maintainers:
+
+.OIDC endpoints locators relative to server root
+[cols="1,3"]
+|===
+| Endpoint | URL
+
+| OIDC discovery
+| `/.well-known/openid-configuration`
+
+| PKCE keys
+| `/.well-known/jwks`
+
+| Authorize endpoint
+| `/connect/authorize`
+
+| Token endpoint
+| `/connect/token`
+
+| Userinfo endpoint
+| _none available by design_
+|===

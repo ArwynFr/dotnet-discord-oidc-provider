@@ -1,0 +1,76 @@
+﻿@page
+@model PrivacyModel
+@{
+    Layout = "_Layout";
+}
+
+<h1>Privacy policy</h1>
+
+<h2>What information do we collect</h2>
+<p>
+    We collect the following information about you:
+</p>
+<ul>
+    <li>Your Discord unique identifier</li>
+    <li>Your Discord username</li>
+    <li>Your Discord discriminator</li>
+</ul>
+<p>
+    This information is collected with your explict consent through Discord authorization page.
+    IP addresses and emails are not collected by this service.
+    Affiliated applications can access further personnal information by additional means.
+    Please check their respective privacy policy for details.
+</p>
+
+<h2>How do we use the information we collect</h2>
+<p>
+    The collected information is used to provide affiliated applications with openid connect tokens:
+</p>
+<ul>
+    <li>
+        Identity tokens are used as a proof of your Discord identity.
+    </li>
+    <li>
+        Access tokens are used as a proof of operating on your behalf when an affiliated application exchanges data with other affilated services.
+    </li>
+</ul>
+<p>
+    Both tokens are valid for @Model.TokenLifetime.TotalMinutes minutes, affilated applications will refresh them after this period of time.
+</p>
+
+<h2>How do we secure collected information</h2>
+<p>
+    Obtaining acces to openid connect tokens requires the exchange of a short-lived (@Model.CodesLifetime.TotalMinutes minutes) single-use authorization code.
+    The purpose of this code is to proove that the affilated application operates under the control fo the same person that authorized with Discord.
+    Furthermore, your information is exchanged with affilated applications using PKCE, which ensures no other program on your computer can read the token.
+</p>
+
+<h2>How long do we keep collected information</h2>
+<p>
+    Your information is stored in the service memory for @Model.IdleTimeout.TotalMinutes minutes after last interaction.
+</p>
+<p>
+    The prupose of this storage is to allow you to access multiple affiliated aplications in a short period of time without the need to authorize with Discord every time.
+    It is also longer than the lifespan of the tokens, allowing affilated applications to refresh them without the need to reauthorize with Discord.
+</p>
+<p>
+    A cookie is stored on your computer with a session identifier to associate ulterior request with your identity.
+    Every interaction with the system will extend the session duration.
+    Interactions with affiliated applications does not extend the session duration.
+    However affilated applications will redirect you to this website transparently for refreshing tokens after they expired.
+    Continuous usage of affilated applications should keep your session alive.
+    When the session expires, the information is automatically removed from the server's memory.
+    Accessing the service with an expired cookie will create a new session, a new cookie and you will need to authorize with Discord again.
+</p>
+<p>
+    Deleting the cookie from your computer will not remove the identity information from the server's memory.
+    Your personnal information will stay in the server's memory but you won't be able to access it.
+    Accessing the service will create a new sesion, with a new cookie, a new authorization grant.
+    Your information will be stored twice in the server's memory.
+    Different sessions cannot be consolidated as this would prevent you from acessing affiliated application from different devices simultaneously.
+</p>
+
+<h2>Contact us</h2>
+<p>
+    You can join us here: <a href="https://discord.gg/bhMn4jd">https://discord.gg/bhMn4jd</a>
+</p>

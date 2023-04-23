@@ -1,0 +1,3 @@
+= Discord OIDC Provider: Support policy
+
+_We are in the process of writing this documentation._

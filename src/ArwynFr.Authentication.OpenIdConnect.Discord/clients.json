@@ -1,0 +1,14 @@
+{
+  "Clients": {
+    "client": {
+      "RedirectUris": [ "https://localhost:5002" ],
+      "AdditionalScopes": [],
+      "Audiences": [ "https://localhost:5003" ]
+    },
+    "api-swagger": {
+      "RedirectUris": [ "https://localhost:5003/swagger/oauth2-redirect.html" ],
+      "AdditionalScopes": [],
+      "Audiences": [ "https://localhost:5003" ]
+    }
+  }
+}

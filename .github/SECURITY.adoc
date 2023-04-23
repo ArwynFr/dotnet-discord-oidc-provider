@@ -1,0 +1,3 @@
+= Discord OIDC Provider: Security policy
+
+_We are in the process of writing this documentation._

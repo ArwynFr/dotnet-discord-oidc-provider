@@ -1,0 +1,56 @@
+= Discord OIDC Provider: Installation guide
+
+== Requirements
+
+Installing this software requires:
+
+- link:https://www.docker.com/[Docker]
+- link:https://discord.com/developers/applications[Registering a Discord developer application]
+* OAuth2/Redirects: `{origin}/signin-discord`
+* Privacy policy URL: `{origin}/Privacy`
+
+If you are trying the application in Visual Studio, the default origin is https://localhost:5001.
+
+You might additionally want to consider using link:https://docs.docker.com/engine/swarm/[Docker Swarm] or link:https://kubernetes.io/[Kubernetes].
+
+== Configuration
+
+=== Environment variables
+You need to provide the following environment variables for this application to work properly:
+
+`Application__Name`:: How you want the application to advertise itself ; ex: "ArwynFr Auth service".
+`Application__Contact`:: An URL for people to contact you ; advertised on the app footer and privacy page.
+`+Discord__ClientId+` and `+Discord__ClientSecret+`:: Credentials obtained when you registered your Discord application.
+
+=== Clients configuration
+You also need to provide a `clients.json` file that lists clients, scopes, audiences and redirect URLs.
+
+.Example of a clients configuration file
+----
+{
+  "Clients": {
+    "client": {
+      "RedirectUris": [ "https://localhost:5002" ],
+      "AdditionalScopes": [],
+      "Audiences": [ "https://localhost:5003" ]
+    },
+    "api-swagger": {
+      "RedirectUris": [ "https://localhost:5003/swagger/oauth2-redirect.html" ],
+      "AdditionalScopes": [],
+      "Audiences": [ "https://localhost:5003" ]
+    }
+  }
+}
+----
+
+== Running
+
+_We are in the process of writing this documentation._
+
+=== Using docker without compose
+
+=== Using docker-compose
+
+=== Using Docker Swarm
+
+=== Using Kubernetes

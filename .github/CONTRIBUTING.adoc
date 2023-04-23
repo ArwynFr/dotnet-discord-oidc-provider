@@ -1,0 +1,14 @@
+= Discord OIDC Provider: Contribution guide
+
+_We are in the process of writing this documentation._
+
+== Roadmap
+
+- CI/CD, code scan, renovate, etc ...
+- Provide custom certificates as secrets for token signing and encryption
+- Ability to customize session / token lifetime
+- Write more documentation:
+* contribution guide
+* installation guide
+* support policy
+* security policy

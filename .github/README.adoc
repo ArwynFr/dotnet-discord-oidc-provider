@@ -1,0 +1,19 @@
+= Discord OIDC Provider
+
+This software is an link:https://openid.net/specs/openid-connect-core-1_0.html#Terminology[OpenId Connect Provider (OP)] that delegates user authentication to Discord. It supports Authorization Code flow with link:https://datatracker.ietf.org/doc/html/rfc7636[PKCE] exclusively and provides OpenId Connect Relaying Parties (RP) with the user's link:https://discord.com/developers/docs/resources/user[Discord identifier, name and discriminator].
+
+== Rules and standards
+
+The following documents provide information on rules and standards applying to this project :
+
+- xref:../LICENSE[MIT license]
+- xref:SECURITY.adoc[Security policy]
+- xref:PIRVACY.adoc[Privacy policy]
+- xref:SUPPORT.adoc[Support policy]
+- xref:CONTRIBUTING.adoc[Contribution guide]
+- xref:INSTALL.adoc[Installation guide]
+- xref:USAGE.adoc[Usage guide]
+
+== Disclaimer
+
+This application or website is not affiliated or authorized by Discord Inc.
