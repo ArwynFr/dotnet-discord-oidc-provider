@@ -6,16 +6,13 @@ on:
     branches: [main]
     paths: ['src/**']
 
-env:
-  PROJECT: ArwynFr.Authentication.OpenIdConnect.Discord
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout files
         uses: actions/checkout@v3
-      
+
       - name: Get new version
         uses: arwynfr/actions-conventional-versioning/get-newVersion@v1
         id: new-version
@@ -30,11 +27,9 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: src
-          file: ${{env.PROJECT}}/Dockerfile
+          file: src/ArwynFr.Authentication.OpenIdConnect.Discord/Dockerfile
           push: true
           tags: arwynfr/discord-oidc-provider:${{ steps.new-version.outputs.next-version }}
 
       - name: Publish new version
         uses: arwynfr/actions-conventional-versioning@v1
-        with:
-          pattern: ''
