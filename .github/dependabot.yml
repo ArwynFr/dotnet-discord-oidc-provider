@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "docker"
-    directory: "/src"
+    directory: "/src/ArwynFr.Authentication.OpenIdConnect.Discord"
     schedule:
       interval: "daily"
   - package-ecosystem: "nuget"
