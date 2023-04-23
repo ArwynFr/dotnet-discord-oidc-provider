@@ -5,9 +5,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  PROJECT: ArwynFr.Authentication.OpenIdConnect.Discord
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,4 +12,4 @@ jobs:
       - name: Checkout files
         uses: actions/checkout@v3
 
-      - run: docker build src --file ${{ env.PROJECT }}/Dockerfile
+      - run: docker build src --file src/ArwynFr.Authentication.OpenIdConnect.Discord/Dockerfile
