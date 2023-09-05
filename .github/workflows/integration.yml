@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - run: docker build src --file src/ArwynFr.Authentication.OpenIdConnect.Discord/Dockerfile
