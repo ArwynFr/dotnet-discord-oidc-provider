@@ -3,10 +3,12 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS resetore
 WORKDIR /src
 COPY ["ArwynFr.Authentication.OpenIdConnect.Discord/ArwynFr.Authentication.OpenIdConnect.Discord.csproj", "ArwynFr.Authentication.OpenIdConnect.Discord/"]
 RUN dotnet restore "ArwynFr.Authentication.OpenIdConnect.Discord/ArwynFr.Authentication.OpenIdConnect.Discord.csproj"
+
+FROM restore AS build
 COPY . .
 WORKDIR "/src/ArwynFr.Authentication.OpenIdConnect.Discord"
 RUN dotnet build "ArwynFr.Authentication.OpenIdConnect.Discord.csproj" -c Release -o /app/build
