@@ -22,9 +22,10 @@ public static class ServiceCollectionExtensions
             options.AddDevelopmentSigningCertificate();
             options.DisableAccessTokenEncryption();
             options.AllowAuthorizationCodeFlow();
+            options.AllowRefreshTokenFlow();
             options.RequireProofKeyForCodeExchange();
-            options.SetAuthorizationEndpointUris("/connect/authorize");
-            options.SetTokenEndpointUris("/connect/token");
+            options.SetAuthorizationEndpointUris(AuthorizeController.Route);
+            options.SetTokenEndpointUris(TokenController.Route);
             options.UseAspNetCore()
                 .EnableTokenEndpointPassthrough()
                 .EnableAuthorizationEndpointPassthrough();

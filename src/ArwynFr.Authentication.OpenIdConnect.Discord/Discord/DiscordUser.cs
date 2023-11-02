@@ -1,6 +1,6 @@
 ﻿namespace ArwynFr.Authentication.OpenIdConnect.Discord.Discord;
 
-public class DiscordUser
+public record DiscordUser
 {
     public bool Bot { get; set; }
 

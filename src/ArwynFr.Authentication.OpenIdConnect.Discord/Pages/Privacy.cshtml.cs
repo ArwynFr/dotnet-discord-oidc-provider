@@ -1,7 +1,7 @@
-using ArwynFr.Authentication.OpenIdConnect.Discord;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using OpenIddict.Server;
+using System.Linq.Expressions;
 
 namespace ArwynFr.Authentication.OpenIdConnect.Discord.Pages
 {
@@ -26,9 +26,6 @@ namespace ArwynFr.Authentication.OpenIdConnect.Discord.Pages
 
         public TimeSpan TokenLifetime { get; set; }
 
-        public void OnGet()
-        {
-            // Display page, nothing to do
-        }
+        public void OnGet() => Expression.Empty();
     }
 }

@@ -45,9 +45,9 @@ public class SeedApplicationDescriptors : IHostedService
                 descriptor.RedirectUris.Add(uri);
             }
 
-            foreach (var additional_scope in client.Value.AdditionalScopes)
+            foreach (var oauth_scope in client.Value.Scopes)
             {
-                descriptor.Permissions.Add(Permissions.Prefixes.Scope + additional_scope);
+                descriptor.Permissions.Add(Permissions.Prefixes.Scope + oauth_scope);
             }
 
             await manager.CreateAsync(descriptor).ConfigureAwait(false);

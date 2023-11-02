@@ -1,10 +1,14 @@
-﻿namespace ArwynFr.Authentication.OpenIdConnect.Discord;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class ApplicationOptions
+namespace ArwynFr.Authentication.OpenIdConnect.Discord;
+
+public record ApplicationOptions
 {
     public const string SectionName = "Application";
 
+    [Required]
     public Uri Contact { get; init; }
 
-    public string Name { get; set; } = string.Empty;
+    [Required]
+    public string Name { get; init; }
 }

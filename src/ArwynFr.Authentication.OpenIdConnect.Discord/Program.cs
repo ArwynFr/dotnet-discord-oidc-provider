@@ -1,26 +1,31 @@
 ﻿using ArwynFr.Authentication.OpenIdConnect.Discord;
-using ArwynFr.Authentication.OpenIdConnect.Discord.Secrets;
-using Microsoft.IdentityModel.Logging;
+using ArwynFr.Authentication.OpenIdConnect.Discord.Connect;
+using ArwynFr.Authentication.OpenIdConnect.Discord.Discord;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddSecretsSupport(builder.Configuration);
-builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.Configure<ApplicationOptions>(builder.Configuration.GetSection(ApplicationOptions.SectionName));
+builder.Services.AddRazorPages();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+builder.Services.AddDiscordAuthentication(builder.Configuration);
+builder.Services.AddControllers();
+builder.Services.AddOpenIddictServerServices();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader());
+});
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
-    // HTTPS and CORS are handled by infrastructure in production
-    IdentityModelEventSource.ShowPII = true;
-    app.UseHttpsRedirection();
-    app.UseCors();
-}
 
+app.UseCors();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
-app.MapControllers();
 app.UseStaticFiles();
 app.UseDirectoryBrowser();
+app.MapControllers();
 
 await app.RunAsync();
