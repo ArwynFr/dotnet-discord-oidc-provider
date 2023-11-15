@@ -3,7 +3,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS restore
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS restore
 WORKDIR /src
 COPY ["ArwynFr.Authentication.OpenIdConnect.Discord/ArwynFr.Authentication.OpenIdConnect.Discord.csproj", "ArwynFr.Authentication.OpenIdConnect.Discord/"]
 RUN dotnet restore "ArwynFr.Authentication.OpenIdConnect.Discord/ArwynFr.Authentication.OpenIdConnect.Discord.csproj"
