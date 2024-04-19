@@ -9,7 +9,7 @@ builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
-builder.Services.AddDiscordAuthentication(builder.Configuration);
+builder.Services.AddDiscordAuthentication(builder.Configuration.GetDiscordOptions());
 builder.Services.AddControllers();
 builder.Services.AddOpenIdConnectServices();
 builder.Services.AddCors(options =>
