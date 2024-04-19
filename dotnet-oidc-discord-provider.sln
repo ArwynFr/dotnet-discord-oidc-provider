@@ -5,12 +5,16 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArwynFr.Authentication.Proxy", "src\ArwynFr.Authentication.Proxy\ArwynFr.Authentication.Proxy.csproj", "{FC63FA3F-5367-4B7E-9231-B0A97B63F719}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{C294F635-9B00-492E-88CB-BA3445A2F140}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C294F635-9B00-492E-88CB-BA3445A2F140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C294F635-9B00-492E-88CB-BA3445A2F140}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC63FA3F-5367-4B7E-9231-B0A97B63F719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC63FA3F-5367-4B7E-9231-B0A97B63F719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC63FA3F-5367-4B7E-9231-B0A97B63F719}.Release|Any CPU.ActiveCfg = Release|Any CPU
