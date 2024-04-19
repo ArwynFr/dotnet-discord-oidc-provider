@@ -1,44 +1,70 @@
-using System;
-using System.Linq;
 using Nuke.Common;
-using Nuke.Common.CI;
-using Nuke.Common.Execution;
-using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.Docker;
+using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Tools.OctoVersion;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.EnvironmentInfo;
-using static Nuke.Common.IO.FileSystemTasks;
-using static Nuke.Common.IO.PathConstruction;
 
 class Build : NukeBuild
 {
-    /// Support plugins are available for:
-    ///   - JetBrains ReSharper        https://nuke.build/resharper
-    ///   - JetBrains Rider            https://nuke.build/rider
-    ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
-    ///   - Microsoft VSCode           https://nuke.build/vscode
+    [Secret, Parameter] readonly string GhToken;
+    [Secret, Parameter] readonly string DockerUsername;
+    [Secret, Parameter] readonly string DockerPassword;
 
-    public static int Main () => Execute<Build>(x => x.Compile);
+    [Required, Solution(GenerateProjects = true)] readonly Solution Solution;
+    [Required, OctoVersion(AutoDetectBranch = true)] readonly OctoVersionInfo OctoVersionInfo;
+    [PathVariable] readonly Tool Gh;
+    [PathVariable] readonly Tool Git;
 
-    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    public static int Main() => Execute<Build>(x => x.Pack);
 
-    Target Clean => _ => _
-        .Before(Restore)
+    bool IsPreRelease => !string.IsNullOrEmpty(OctoVersionInfo.PreReleaseTag);
+
+
+    Target Pack => _ => _
+        .Executes(() => DotNetTasks.DotNetPublish(_ => _
+            .SetProject(Solution.ArwynFr_Authentication_Proxy)
+            .SetConfiguration(Configuration.Release)
+            .AddProperty("ContainerRegistry", string.Empty)
+            .AddProperty("ContainerImageTag", OctoVersionInfo.FullSemVer)
+            .SetProcessArgumentConfigurator(_ => _.Add("/t:PublishContainer"))));
+
+    Target Login => _ => _
+        .Unlisted()
+        .Requires(() => DockerUsername, () => DockerPassword)
+        .Executes(() => DockerTasks.DockerLogin(_ => _
+            .SetUsername(DockerUsername)
+            .SetPassword(DockerPassword)));
+
+    Target Publish => _ => _
+        .DependsOn(Login)
+        .Executes(() => DotNetTasks.DotNetPublish(_ => _
+            .SetProject(Solution.ArwynFr_Authentication_Proxy)
+            .SetConfiguration(Configuration.Release)
+            .AddProperty("ContainerImageTag", OctoVersionInfo.FullSemVer)
+            .SetProcessArgumentConfigurator(_ => _.Add("/t:PublishContainer"))));
+
+
+    Target Release => _ => _
+        .Unlisted()
+        .TriggeredBy(Publish)
+        .Requires(() => GhToken)
+        .Executes(() => Gh.Invoke(
+            arguments: $"release create {OctoVersionInfo.FullSemVer} --generate-notes",
+            environmentVariables: EnvironmentInfo.Variables
+                .ToDictionary(x => x.Key, x => x.Value)
+                .SetKeyValue("GH_TOKEN", GhToken).AsReadOnly()));
+
+    Target Tags => _ => _
+        .Unlisted()
+        .TriggeredBy(Publish)
+        .OnlyWhenStatic(() => !IsPreRelease)
         .Executes(() =>
         {
-        });
-
-    Target Restore => _ => _
-        .Executes(() =>
-        {
-        });
-
-    Target Compile => _ => _
-        .DependsOn(Restore)
-        .Executes(() =>
-        {
+            Git.Invoke($"tag --force v{OctoVersionInfo.Major}.{OctoVersionInfo.Minor}");
+            Git.Invoke($"tag --force v{OctoVersionInfo.Major}");
+            Git.Invoke("push origin --tags --force");
         });
 
 }

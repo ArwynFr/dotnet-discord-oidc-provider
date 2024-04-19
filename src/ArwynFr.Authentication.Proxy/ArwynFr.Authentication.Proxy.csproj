@@ -6,8 +6,8 @@
 	  <Nullable>enable</Nullable>
     <UserSecretsId>1062b471-c77e-4e7f-83a2-c829db03351a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>../</DockerfileContext>
-    <DockerImageLabels>test</DockerImageLabels>
+    <ContainerRegistry>docker.io</ContainerRegistry>
+    <ContainerRepository>arwynfr/discord-oidc-provider</ContainerRepository>
   </PropertyGroup>
 
   <ItemGroup>
