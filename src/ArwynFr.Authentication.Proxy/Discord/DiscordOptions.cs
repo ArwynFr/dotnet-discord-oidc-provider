@@ -7,8 +7,8 @@ public record DiscordOptions
     public const string ConfigurationPath = "Discord";
 
     [Required]
-    public string ClientId { get; set; } = string.Empty;
+    public string ClientId { get; init; } = string.Empty;
 
     [Required]
-    public string ClientSecret { get; set; } = string.Empty;
+    public string ClientSecret { get; init; } = string.Empty;
 }

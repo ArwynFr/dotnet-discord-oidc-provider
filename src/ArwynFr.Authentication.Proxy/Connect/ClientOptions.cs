@@ -7,7 +7,7 @@ public record ClientOptions
     public const string SectionName = "Clients";
 
     [Required]
-    public required string ClientId { get; init; }
+    public string ClientId { get; init; } = string.Empty;
 
     public string[] Audiences { get; init; } = [];
 
