@@ -80,6 +80,7 @@
               "Pack",
               "Publish",
               "Release",
+              "RunDocker",
               "Tags"
             ]
           }
@@ -98,6 +99,7 @@
               "Pack",
               "Publish",
               "Release",
+              "RunDocker",
               "Tags"
             ]
           }

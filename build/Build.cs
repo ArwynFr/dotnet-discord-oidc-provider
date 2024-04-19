@@ -21,7 +21,6 @@ class Build : NukeBuild
 
     bool IsPreRelease => !string.IsNullOrEmpty(OctoVersionInfo.PreReleaseTag);
 
-
     Target Pack => _ => _
         .Executes(() => DotNetTasks.DotNetPublish(_ => _
             .SetProject(Solution.ArwynFr_Authentication_Proxy)
@@ -29,6 +28,14 @@ class Build : NukeBuild
             .AddProperty("ContainerRegistry", string.Empty)
             .AddProperty("ContainerImageTag", OctoVersionInfo.FullSemVer)
             .SetProcessArgumentConfigurator(_ => _.Add("/t:PublishContainer"))));
+
+    Target RunDocker => _ => _
+        .DependsOn(Pack)
+        .Executes(() => DockerTasks.DockerRun(_ => _
+            .SetImage($"arwynfr/discord-oidc-provider:{OctoVersionInfo.FullSemVer}")
+            .SetDetach(true)
+            .SetRm(true)
+            .AddPublish("8080:8080")));
 
     Target Login => _ => _
         .Unlisted()
