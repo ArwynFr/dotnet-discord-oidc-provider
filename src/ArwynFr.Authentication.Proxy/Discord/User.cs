@@ -1,6 +1,6 @@
 ﻿namespace ArwynFr.Authentication.Proxy.Discord;
 
-public record DiscordUser
+public record User
 {
     public bool Bot { get; set; }
 

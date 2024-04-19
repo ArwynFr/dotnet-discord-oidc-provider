@@ -1,6 +1,6 @@
 ﻿namespace ArwynFr.Authentication.Proxy.Discord;
 
-public static class DiscordDefaults
+public static class Defaults
 {
     public const string AuthenticationScheme = "discord";
 
