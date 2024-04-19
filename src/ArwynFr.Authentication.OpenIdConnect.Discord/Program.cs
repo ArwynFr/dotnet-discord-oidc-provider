@@ -11,7 +11,7 @@ builder.Services.AddSession(options =>
 });
 builder.Services.AddDiscordAuthentication(builder.Configuration);
 builder.Services.AddControllers();
-builder.Services.AddOpenIddictServerServices();
+builder.Services.AddOpenIdConnectServices();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader());

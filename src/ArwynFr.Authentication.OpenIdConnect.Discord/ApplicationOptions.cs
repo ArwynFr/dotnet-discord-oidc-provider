@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArwynFr.Authentication.OpenIdConnect.Discord;
 
@@ -7,8 +7,8 @@ public record ApplicationOptions
     public const string SectionName = "Application";
 
     [Required]
-    public Uri Contact { get; init; }
+    public required Uri Contact { get; init; }
 
     [Required]
-    public string Name { get; init; }
+    public required string Name { get; init; }
 }

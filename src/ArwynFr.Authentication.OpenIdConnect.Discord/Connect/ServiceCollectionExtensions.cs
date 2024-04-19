@@ -6,45 +6,37 @@ namespace ArwynFr.Authentication.OpenIdConnect.Discord.Connect;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddOpenIddictServerServices(this IServiceCollection services) => services
-        .AddDbContext<DbContext>(options =>
-        {
-            options.UseInMemoryDatabase(nameof(DbContext)).UseOpenIddict();
-        })
-        .AddOpenIddict()
-        .AddCore(options =>
-        {
-            options.UseEntityFrameworkCore().UseDbContext<DbContext>();
-        })
-        .AddServer(options =>
-        {
-            options.AddDevelopmentEncryptionCertificate();
-            options.AddDevelopmentSigningCertificate();
-            options.DisableAccessTokenEncryption();
-            options.AllowAuthorizationCodeFlow();
-            options.AllowRefreshTokenFlow();
-            options.RequireProofKeyForCodeExchange();
-            options.SetAuthorizationEndpointUris(AuthorizeController.Route);
-            options.SetTokenEndpointUris(TokenController.Route);
-            options.UseAspNetCore()
-                .EnableTokenEndpointPassthrough()
-                .EnableAuthorizationEndpointPassthrough();
+    public static IServiceCollection AddOpenIdConnectServices(this IServiceCollection services) => services
+        .AddClientsOptions()
+        .AddOpenIddictServices()
+        .AddScoped<SeedDescriptorsCommand>()
+        .AddScoped<SeedDescriptorsFactory>()
+        .AddHostedService<SeedDescriptorsService>();
 
-            options.RegisterScopes(OpenIddictConstants.Scopes.Profile);
-            options.RegisterClaims(OpenIddictConstants.Claims.Name);
-            options.RegisterClaims(ClaimTypes.Name);
-            options.SetAccessTokenLifetime(TimeSpan.FromMinutes(20));
-            options.SetIdentityTokenLifetime(TimeSpan.FromMinutes(20));
-        })
-        .Services
-        .AddClientsConfigurationProvider()
-        .AddHostedService<SeedApplicationDescriptors>();
+    private static IServiceCollection AddClientsOptions(this IServiceCollection services) => services
+        .AddOptions<ClientSection>().BindConfiguration(ClientSection.SectionName).Services;
 
-    private static IServiceCollection AddClientsConfigurationProvider(this IServiceCollection services)
-    {
-        IConfiguration config = new ConfigurationBuilder().AddJsonFile("clients.json").Build();
-        var section = config.Get<ClientSection>() ??
-            throw new InvalidOperationException("Cannot load clients configuration file");
-        return services.AddSingleton(section);
-    }
+    private static IServiceCollection AddOpenIddictServices(this IServiceCollection services) => services
+        .AddDbContext<DbContext>(_ => _.UseInMemoryDatabase(nameof(DbContext)).UseOpenIddict())
+        .AddOpenIddict().AddCore(_ => _.UseEntityFrameworkCore().UseDbContext<DbContext>())
+        .AddServer(ConfigureOpenIddictServer).Services;
+
+    private static void ConfigureOpenIddictServer(OpenIddictServerBuilder options) => options
+        .AddDevelopmentEncryptionCertificate()
+        .AddDevelopmentSigningCertificate()
+        .DisableAccessTokenEncryption()
+        .AllowAuthorizationCodeFlow()
+        .AllowRefreshTokenFlow()
+        .RequireProofKeyForCodeExchange()
+        .SetAuthorizationEndpointUris(AuthorizeController.Route)
+        .SetTokenEndpointUris(TokenController.Route)
+        .RegisterScopes(OpenIddictConstants.Scopes.Profile)
+        .RegisterClaims(OpenIddictConstants.Claims.Name)
+        .RegisterClaims(ClaimTypes.Name)
+        .SetAccessTokenLifetime(TimeSpan.FromMinutes(20))
+        .SetIdentityTokenLifetime(TimeSpan.FromMinutes(20))
+        .SetRefreshTokenLifetime(TimeSpan.FromDays(7))
+        .UseAspNetCore()
+            .EnableTokenEndpointPassthrough()
+            .EnableAuthorizationEndpointPassthrough();
 }
