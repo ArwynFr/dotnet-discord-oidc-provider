@@ -1,43 +1,22 @@
-name: deployment
+name: continuous deployment
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['src/**']
 
 jobs:
-  deploy:
+  deployment:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout files
+      - name: Checkout sources
         uses: actions/checkout@v4
-
-      - name: Get new version
-        uses: arwynfr/actions-conventional-versioning/get-newVersion@v3
-        id: new-version
         with:
-          allow-additional-modifiers: true
-          feat-upgrades-minor: false
-          strict-types: true
+          fetch-depth: 0
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: src
-          file: src/ArwynFr.Authentication.OpenIdConnect.Discord/Dockerfile
-          push: true
-          tags: arwynfr/discord-oidc-provider:${{ steps.new-version.outputs.next-version }}
-
-      - name: Publish new version
-        uses: arwynfr/actions-conventional-versioning@v3
-        with:
-          allow-additional-modifiers: true
-          feat-upgrades-minor: false
-          strict-types: true
+      - name: Publish using nuke
+        run: ./build.cmd Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DOCKER_USERNAME: ${{ secrets.dockerhub_username }}
+          DOCKER_PASSWORD: ${{ secrets.dockerhub_token }}

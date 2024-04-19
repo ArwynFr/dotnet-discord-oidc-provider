@@ -1,15 +1,22 @@
-name: integration
+name: continuous integration
 
 on:
   workflow_dispatch:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  integration:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout files
+      - name: Checkout sources
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - run: docker build src --file src/ArwynFr.Authentication.OpenIdConnect.Discord/Dockerfile
+      - name: Verify using nuke
+        run: ./build.sh
