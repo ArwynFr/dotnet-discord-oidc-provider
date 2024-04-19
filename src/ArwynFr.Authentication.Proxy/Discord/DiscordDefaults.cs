@@ -1,4 +1,4 @@
-﻿namespace ArwynFr.Authentication.OpenIdConnect.Discord.Discord;
+﻿namespace ArwynFr.Authentication.Proxy.Discord;
 
 public static class DiscordDefaults
 {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace ArwynFr.Authentication.OpenIdConnect.Discord.Connect;
+namespace ArwynFr.Authentication.Proxy.Connect;
 
 public class SeedDescriptorsService(IServiceScopeFactory scopeFactory) : IHostedService
 {

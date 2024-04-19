@@ -1,7 +1,7 @@
 using OpenIddict.Abstractions;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace ArwynFr.Authentication.OpenIdConnect.Discord.Connect;
+namespace ArwynFr.Authentication.Proxy.Connect;
 
 public class SeedDescriptorsFactory
 {

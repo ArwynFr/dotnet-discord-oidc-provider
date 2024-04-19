@@ -1,4 +1,6 @@
-﻿public static class Constants
+﻿namespace ArwynFr.Authentication.Proxy;
+
+public static class Constants
 {
     public const string CookieAuthenticationScheme = "cookie";
 

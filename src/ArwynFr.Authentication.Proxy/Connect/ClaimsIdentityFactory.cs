@@ -2,7 +2,7 @@
 using OpenIddict.Server.AspNetCore;
 using System.Security.Claims;
 
-namespace ArwynFr.Authentication.OpenIdConnect.Discord.Connect;
+namespace ArwynFr.Authentication.Proxy.Connect;
 
 public static class ClaimsIdentityFactory
 {

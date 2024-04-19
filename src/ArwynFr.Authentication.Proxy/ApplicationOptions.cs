@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ArwynFr.Authentication.OpenIdConnect.Discord;
+namespace ArwynFr.Authentication.Proxy;
 
 public record ApplicationOptions
 {

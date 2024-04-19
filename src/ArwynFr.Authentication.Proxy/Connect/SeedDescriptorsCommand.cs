@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using OpenIddict.Abstractions;
 
-namespace ArwynFr.Authentication.OpenIdConnect.Discord.Connect;
+namespace ArwynFr.Authentication.Proxy.Connect;
 
 public class SeedDescriptorsCommand(
     IOptions<ClientSection> options,

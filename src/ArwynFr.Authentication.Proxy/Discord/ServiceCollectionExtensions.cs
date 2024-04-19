@@ -2,7 +2,7 @@
 using OpenIddict.Abstractions;
 using System.Net.Http.Headers;
 
-namespace ArwynFr.Authentication.OpenIdConnect.Discord.Discord;
+namespace ArwynFr.Authentication.Proxy.Discord;
 
 public static class ServiceCollectionExtensions
 {

@@ -1,6 +1,6 @@
-﻿using ArwynFr.Authentication.OpenIdConnect.Discord;
-using ArwynFr.Authentication.OpenIdConnect.Discord.Connect;
-using ArwynFr.Authentication.OpenIdConnect.Discord.Discord;
+﻿using ArwynFr.Authentication.Proxy;
+using ArwynFr.Authentication.Proxy.Connect;
+using ArwynFr.Authentication.Proxy.Discord;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ApplicationOptions>(builder.Configuration.GetSection(ApplicationOptions.SectionName));

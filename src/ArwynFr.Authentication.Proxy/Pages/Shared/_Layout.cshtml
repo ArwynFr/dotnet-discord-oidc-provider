@@ -1,10 +1,11 @@
-﻿@using ArwynFr.Authentication.OpenIdConnect.Discord;
+﻿@using ArwynFr.Authentication.Proxy;
 @using Microsoft.Extensions.Options;
 @{
     var options = Context.RequestServices.GetRequiredService<IOptions<ApplicationOptions>>();
 }
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,7 +43,8 @@
             <p>
                 This website is a proxy authentication.
                 It is not affiliated or authorized by discord.com.
-                Your personnal information is never persisted and only stored in-memory for the duration of your session.
+                Your personnal information is never persisted and only stored in-memory for the duration of your
+                session.
             </p>
         </div>
     </footer>
