@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArwynFr.Authentication.Proxy", "ArwynFr.Authentication.Proxy\ArwynFr.Authentication.Proxy.csproj", "{FC63FA3F-5367-4B7E-9231-B0A97B63F719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArwynFr.Authentication.Proxy", "src\ArwynFr.Authentication.Proxy\ArwynFr.Authentication.Proxy.csproj", "{FC63FA3F-5367-4B7E-9231-B0A97B63F719}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
