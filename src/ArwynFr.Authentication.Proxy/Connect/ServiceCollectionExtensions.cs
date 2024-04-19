@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
         .AddHostedService<SeedDescriptorsService>();
 
     private static IServiceCollection AddClientsOptions(this IServiceCollection services) => services
-        .AddOptions<ClientSection>().BindConfiguration(ClientSection.SectionName).Services;
+        .AddOptions<List<ClientOptions>>().BindConfiguration(ClientOptions.SectionName).Services;
 
     private static IServiceCollection AddOpenIddictServices(this IServiceCollection services) => services
         .AddDbContext<DbContext>(_ => _.UseInMemoryDatabase(nameof(DbContext)).UseOpenIddict())

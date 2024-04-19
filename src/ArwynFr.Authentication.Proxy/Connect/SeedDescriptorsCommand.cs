@@ -4,19 +4,19 @@ using OpenIddict.Abstractions;
 namespace ArwynFr.Authentication.Proxy.Connect;
 
 public class SeedDescriptorsCommand(
-    IOptions<ClientSection> options,
+    IOptions<List<ClientOptions>> options,
     IOpenIddictApplicationManager manager,
     SeedDescriptorsFactory factory)
 {
-    private readonly IOptions<ClientSection> options = options;
+    private readonly IOptions<List<ClientOptions>> options = options;
     private readonly IOpenIddictApplicationManager manager = manager;
     private readonly SeedDescriptorsFactory factory = factory;
 
     public async Task ExecuteAsync(CancellationToken cancellation)
     {
-        foreach (var (id, data) in options.Value.Clients)
+        foreach (var client in options.Value)
         {
-            var descriptor = factory.MakeDescriptor(id, data);
+            var descriptor = factory.MakeDescriptor(client);
             await manager
                 .CreateAsync(descriptor, cancellation)
                 .ConfigureAwait(false);

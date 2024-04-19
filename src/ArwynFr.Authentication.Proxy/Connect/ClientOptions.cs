@@ -1,10 +1,17 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ArwynFr.Authentication.Proxy.Connect;
 
 public record ClientOptions
 {
-    public string[] Audiences { get; set; } = [];
+    public const string SectionName = "Clients";
 
-    public Uri[] RedirectUris { get; set; } = [];
+    [Required]
+    public required string ClientId { get; init; }
 
-    public string[] Scopes { get; set; } = [];
+    public string[] Audiences { get; init; } = [];
+
+    public Uri[] RedirectUris { get; init; } = [];
+
+    public string[] Scopes { get; init; } = [];
 }

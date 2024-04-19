@@ -5,12 +5,12 @@ namespace ArwynFr.Authentication.Proxy.Connect;
 
 public class SeedDescriptorsFactory
 {
-    public OpenIddictApplicationDescriptor MakeDescriptor(string id, ClientOptions data)
+    public OpenIddictApplicationDescriptor MakeDescriptor(ClientOptions client)
     {
         var descriptor = new OpenIddictApplicationDescriptor
         {
-            ClientId = id,
-            DisplayName = id,
+            ClientId = client.ClientId,
+            DisplayName = client.ClientId,
             Type = ClientTypes.Public,
             Permissions =
                 {
@@ -22,12 +22,12 @@ public class SeedDescriptorsFactory
                 },
         };
 
-        foreach (var uri in data.RedirectUris)
+        foreach (var uri in client.RedirectUris)
         {
             descriptor.RedirectUris.Add(uri);
         }
 
-        foreach (var oauth_scope in data.Scopes)
+        foreach (var oauth_scope in client.Scopes)
         {
             descriptor.Permissions.Add(Permissions.Prefixes.Scope + oauth_scope);
         }

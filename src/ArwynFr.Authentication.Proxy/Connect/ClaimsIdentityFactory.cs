@@ -12,9 +12,9 @@ public static class ClaimsIdentityFactory
         identity.SetClaim(OpenIddictConstants.Claims.Subject, principal.FindFirstValue(OpenIddictConstants.Claims.Subject));
         identity.SetClaim(OpenIddictConstants.Claims.Name, principal.Identity?.Name);
         identity.SetClaim(ClaimTypes.Name, principal.Identity?.Name);
-        identity.SetDestinations(claim => new[] {
+        identity.SetDestinations(claim => [
             OpenIddictConstants.Destinations.AccessToken,
-            OpenIddictConstants.Destinations.IdentityToken});
+            OpenIddictConstants.Destinations.IdentityToken]);
         return identity;
     }
 }
